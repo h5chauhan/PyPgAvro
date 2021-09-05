@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pgavro"
+name = "pypgavro"
 version = "0.1.0"
 description = "Convert Postgres tables to Avro files"
 authors = ["Harsh Chauhan <hschauhan25@gmail.com>"]
