@@ -23,7 +23,7 @@ jobs:
           postgresql version: "14" # See https://hub.docker.com/_/postgres for available versions
         env:
           INPUT_POSTGRESQL_DB: pypgavro
-          POSTGRES_USER: pg_user
+          INPUT_POSTGRESQ_USER: pg_user
           INPUT_POSTGRESQL_PASSWORD: pg_password
 
       - uses: actions/checkout@v3

@@ -9,7 +9,6 @@ def get_connection_pool():
     conn_pool = ThreadedConnectionPool(
         minconn=1,
         maxconn=20,
-        host="postgres",
         user="pg_user",
         password="pg_password",
         database="pypgavro"
