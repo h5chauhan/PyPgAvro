@@ -9,8 +9,8 @@ def get_connection_pool():
     conn_pool = ThreadedConnectionPool(
         minconn=1,
         maxconn=20,
-        user="pg_user",
-        password="pg_password",
+        user="pypgavro",
+        password="pypgavro",
         database="pypgavro"
     )
     yield conn_pool
