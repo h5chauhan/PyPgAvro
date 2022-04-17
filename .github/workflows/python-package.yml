@@ -26,18 +26,6 @@ jobs:
           POSTGRES_USER: pg_user
           INPUT_POSTGRESQL_PASSWORD: pg_password
 
-      - name: Install PostgreSQL and client
-        run: |
-          apt-get update
-          apt-get install --yes postgresql-client
-
-      - name: Query database
-        run: psql -h postgres -d pypgavro -c 'SELECT 1;'
-        # env:
-        #   # postgress password is required; alternatively, you can run:
-        #   # `PGPASSWORD=postgres_password psql ...`
-        #   PGPASSWORD: pg_password
-
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
