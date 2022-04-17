@@ -16,34 +16,27 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.8", "3.9", "3.10"]
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_DB: pypgavro
-          POSTGRES_PASSWORD: pg_password
-          POSTGRES_PORT: 5432
-          POSTGRES_USER: pg_user
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
 
     steps:
-      - name: Install PostgreSQL client
+      - uses: harmon758/postgresql-action@v1
+        with:
+          postgresql version: "14" # See https://hub.docker.com/_/postgres for available versions
+        env:
+          INPUT_POSTGRESQL_DB: pypgavro
+          POSTGRES_USER: pg_user
+          INPUT_POSTGRESQL_PASSWORD: pg_password
+
+      - name: Install PostgreSQL and client
         run: |
           apt-get update
           apt-get install --yes postgresql-client
 
       - name: Query database
-        run: psql -h postgres -d pypgavro -U pg_user -c 'SELECT 1;'
-        env:
-          # postgress password is required; alternatively, you can run:
-          # `PGPASSWORD=postgres_password psql ...`
-          PGPASSWORD: pg_password
+        run: psql -h postgres -d pypgavro -c 'SELECT 1;'
+        # env:
+        #   # postgress password is required; alternatively, you can run:
+        #   # `PGPASSWORD=postgres_password psql ...`
+        #   PGPASSWORD: pg_password
 
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
