@@ -1,5 +1,4 @@
 from decimal import Decimal
-from tokenize import Double
 
 import pytest
 from psycopg2.pool import ThreadedConnectionPool
@@ -7,8 +6,16 @@ from psycopg2.pool import ThreadedConnectionPool
 
 @pytest.fixture
 def get_connection_pool():
-    conn_pool = ThreadedConnectionPool(minconn=1, maxconn=20, database="pypgavro")
+    conn_pool = ThreadedConnectionPool(
+        minconn=1,
+        maxconn=20,
+        host="postgres",
+        user="pg_user",
+        password="pg_password",
+        database="pypgavro"
+    )
     yield conn_pool
+
 
 @pytest.fixture
 def create_table(get_connection_pool):
@@ -38,12 +45,14 @@ def init_data(get_connection_pool, create_table):
     conn = pool.getconn()
     cur = conn.cursor()
     sql = """INSERT INTO public.test_table (
-        col_smallint, col_integer, col_bigint, col_decimal, col_numeric, col_real, col_double)
+        col_smallint, col_integer, col_bigint,
+        col_decimal, col_numeric, col_real, col_double)
         VALUES (%s, %s, %s, %s, %s, %s, %s)"""
-    cur.execute(sql, (10,10,10, Decimal("10.10"), Decimal("10.10"), 10.10, 10.10))
+    cur.execute(sql, (
+        10, 10, 10, Decimal("10.10"), Decimal("10.10"), 10.10, 10.10))
     conn.commit()
 
-        
+
 def test_database_setup(get_connection_pool, init_data):
     init_data
     pool = get_connection_pool
