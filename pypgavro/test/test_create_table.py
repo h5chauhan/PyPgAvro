@@ -12,7 +12,7 @@ def get_connection_pool():
         host="localhost",
         user="pypgavro",
         password="pypgavro",
-        database="pypgavro"
+        database="pypgavro",
     )
     yield conn_pool
 
@@ -23,7 +23,8 @@ def create_table(get_connection_pool):
     conn = pool.getconn()
     cur = conn.cursor()
     cur.execute("drop table if exists public.test_table")
-    cur.execute("""
+    cur.execute(
+        """
         CREATE TABLE IF NOT EXISTS public.test_table (
             col_smallint smallint,
             col_integer integer,
@@ -34,7 +35,8 @@ def create_table(get_connection_pool):
             col_double double precision,
             col_smallserial smallserial,
             col_serial serial,
-            col_bigserial bigserial);""")
+            col_bigserial bigserial);"""
+    )
     conn.commit()
 
 
@@ -48,8 +50,7 @@ def init_data(get_connection_pool, create_table):
         col_smallint, col_integer, col_bigint,
         col_decimal, col_numeric, col_real, col_double)
         VALUES (%s, %s, %s, %s, %s, %s, %s)"""
-    cur.execute(sql, (
-        10, 10, 10, Decimal("10.10"), Decimal("10.10"), 10.10, 10.10))
+    cur.execute(sql, (10, 10, 10, Decimal("10.10"), Decimal("10.10"), 10.10, 10.10))
     conn.commit()
 
 
