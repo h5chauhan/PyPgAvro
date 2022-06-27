@@ -42,7 +42,6 @@ def create_table(get_connection_pool):
 
 @pytest.fixture
 def init_data(get_connection_pool, create_table):
-    create_table
     pool = get_connection_pool
     conn = pool.getconn()
     cur = conn.cursor()
@@ -55,7 +54,6 @@ def init_data(get_connection_pool, create_table):
 
 
 def test_database_setup(get_connection_pool, init_data):
-    init_data
     pool = get_connection_pool
     conn = pool.getconn()
     cur = conn.cursor()
