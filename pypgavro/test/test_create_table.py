@@ -59,4 +59,5 @@ def test_database_setup(get_connection_pool, init_data):
     conn = pool.getconn()
     cur = conn.cursor()
     cur.execute("select count(*) from public.test_table")
-    assert 1 == cur.fetchone()[0]
+    if 1 != cur.fetchone()[0]:
+        raise AssertionError
