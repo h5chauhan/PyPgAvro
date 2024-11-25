@@ -1,8 +1,15 @@
 {
     "python.testing.pytestArgs": [
-        "pypgavro"
+        "test"
     ],
     "python.testing.pytestEnabled": true,
-    "python.linting.enabled": true,
-    "python.linting.lintOnSave": true,
+    "[python]": {
+        "diffEditor.ignoreTrimWhitespace": false,
+        "gitlens.codeLens.symbolScopes": [
+            "!Module"
+        ],
+        "editor.formatOnType": true,
+        "editor.wordBasedSuggestions": "off",
+        "editor.defaultFormatter": "charliermarsh.ruff"
+    }
 }

@@ -1,18 +1,15 @@
-[tool.poetry]
+[project]
 name = "pypgavro"
 version = "0.1.0"
-description = "Convert Postgres tables to Avro files"
-authors = ["Harsh Chauhan <hschauhan25@gmail.com>"]
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "psycopg2-binary>=2.9.10",
+]
 
-[tool.poetry.dependencies]
-python = "^3.7"
-
-
-[tool.poetry.dev-dependencies]
-pytest = "^6.2.5"
-psycopg2-binary = "*"
-black = "*"
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+[dependency-groups]
+dev = [
+    "pytest>=8.3.3",
+    "ruff>=0.8.0",
+]

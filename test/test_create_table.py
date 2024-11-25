@@ -1,7 +1,7 @@
 from decimal import Decimal
 
 import pytest
-from psycopg2.pool import ThreadedConnectionPool
+from psycopg import ThreadedConnectionPool
 
 
 @pytest.fixture
